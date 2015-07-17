@@ -1,6 +1,6 @@
 #Daily Diary#
 
-An app that challenges users to record their daily activities in 40 characters or fewer.
+An app that challenges users to record their daily activities in 60 characters or fewer.
 
 ##About##
 
@@ -20,19 +20,19 @@ Sally is a busy millennial working at a tech startup in San Francisco. Although 
 
 ##Schemas##
 
-`var UserSchema = new Schema ({
+<pre><code>var UserSchema = new Schema ({
   firstname: String,
   lasname: String,
   email_address: String,
   profile_picture: image // if I can figure out how to do an upload, or a URL to a publicly avail online image
   passwordDigest: String
-});`
+});</code></pre>
 
-`var EntrySchema = new Schema ({
+<pre><code>var EntrySchema = new Schema ({
   diary_entry: String,
   date: String, // will be automatically generated
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   }
-});`
+});</code></pre>
