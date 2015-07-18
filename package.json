@@ -1,0 +1,24 @@
+{
+  "name": "daily-diary",
+  "version": "0.0.1",
+  "description": "Record your favorite memories in 60 characters or fewer.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bgamwell/daily-diary.git"
+  },
+  "author": "Brennan Gamwell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bgamwell/daily-diary/issues"
+  },
+  "homepage": "https://github.com/bgamwell/daily-diary",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "mongoose": "^4.0.7"
+  }
+}
