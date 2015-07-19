@@ -2,6 +2,8 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    ejs = require('ejs'),
+    session = require('express-session'),
     mongoose = require('mongoose'),
     User = require('./models/user'),
     Log = require('./models/log');
@@ -9,9 +11,44 @@ var express = require('express'),
 // connect to mongodb
 mongoose.connect('mongodb://localhost/daily-diary');
 
+// set view engine for server-side templating
+app.set('view engine', 'ejs');
+
 // middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
+
+// set session options
+app.use(session({
+  saveUninitialized: true,
+  resave: true,
+  secret: 'SuperSecretCookie',
+  cookie: { maxAge: 60000 }
+}));
+
+// middleware to manage sessions
+app.use('/', function (req, res, next) {
+  // saves userId in session for logged-in user
+  req.login = function (user) {
+    req.session.userId = user.id;
+  };
+
+  // finds user currently logged in based on `session.userId`
+  req.currentUser = function (callback) {
+    User.findOne({_id: req.session.userId}, function (err, user) {
+      req.user = user;
+      callback(null, user);
+    });
+  };
+
+  // destroy `session.userId` to log out user
+  req.logout = function () {
+    req.session.userId = null;
+    req.user = null;
+  };
+
+  next();
+});
 
 // STATIC ROUTES
 
@@ -19,21 +56,50 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/public/views/index.html'); // send index.html to localhost:3000 as the homepage
 });
 
-// log in
-app.post('/login', function (req, res) { //login route post works with postman
+// user submits the login form
+app.post('/login', function (req, res) {
+
+  // grab user data from params (req.body)
   var userData = req.body.user;
-  res.json(userData);
+
+  // call authenticate function to check if password user entered is correct
+  User.authenticate(userData.email, userData.password, function (err, user) {
+    // saves user id to session
+    req.login(user);
+
+    // redirect to user profile
+    res.redirect('/profile');
+  });
 });
 
-// sign up
-app.post('/users', function (req, res) { //signup route works with postman
-  var userLogin = req.body.user;
-  res.json(userLogin);
+// user submits the signup form
+app.post('/users', function (req, res) {
+
+  // grab user data from params (req.body)
+  var newUser = req.body.user;
+
+  // create new user with secure password
+  User.createSecure(newUser.email, newUser.password, function (err, user) {
+    res.send(user);
+  });
 });
 
+// signup route with placeholder response
+app.get('/signup', function (req, res) {
+  res.send('coming soon');
+});
+
+// user profile page
 app.get('/profile', function (req, res) {
-  //should render all posts from a particular user
+  // finds user currently logged in
+  req.currentUser(function (err, user) {
+    res.sendFile(__dirname + '/public/views/profile.html');
+  });
 });
+
+// app.get('/profile', function (req, res) {
+//   res.sendFile(__dirname + '/public/views/profile.html');
+// });
 
 // create an api/profile route so users can access their information from elsewhere via an api, as long as they're logged in
 

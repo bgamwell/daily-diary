@@ -17,9 +17,11 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
+          <div id="user-information-rendered-here" class="text-center"><!-- User profile information, such as name and picture will go in here --></div>
         </div> <!-- .col-md-3 close -->
-        <div class="col-md-9">
+        <div class="col-md-8">
+          <!-- User diary entries will go here -->
         </div> <!-- .col-md-9 close -->
       </div> <!-- .row close -->
     </div> <!-- .container close -->
@@ -35,6 +37,11 @@
 
     <!-- Custom JS -->
     <script src="../scripts/script.js"></script>
+
+    <script type="text/template" id="profile-template">
+      <h1> <%= firstname %> <%= lastname %> </h1> <!-- displays the name of the current user -->
+      <p><img class="profile-picture" src=<%= profile_picture %> > <p>
+    </script>
 
   </body>
 
