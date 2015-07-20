@@ -54,6 +54,7 @@ app.use('/', function (req, res, next) {
 // STATIC ROUTES
 
 app.get('/', function(req, res) {
+  console.log(__dirname);
   res.sendFile(__dirname + '/public/views/index.html'); // send index.html to localhost:3000 as the homepage
 });
 
