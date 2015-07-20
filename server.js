@@ -5,7 +5,8 @@ var express = require('express'),
     session = require('express-session'),
     mongoose = require('mongoose'),
     User = require('./models/user'),
-    Log = require('./models/log');
+    Log = require('./models/log'),
+    path = require('path');
 
 // connect to mongodb
 mongoose.connect(
@@ -16,7 +17,7 @@ mongoose.connect(
 
 // middleware
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname + '/public')));
 
 // set session options
 app.use(session({
@@ -54,7 +55,7 @@ app.use('/', function (req, res, next) {
 // STATIC ROUTES
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/public/views/index.html'); // send index.html to localhost:3000 as the homepage
+  res.sendFile(path.join(__dirname + '/public/views/index.html')); // send index.html to localhost:3000 as the homepage
 });
 
 // user submits the login form
