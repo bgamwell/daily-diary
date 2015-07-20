@@ -34,7 +34,7 @@ app.use('/', function (req, res, next) {
   };
 
   // finds user currently logged in based on `session.userId`
-  req.currentUser = function (callback) {
+  req.currentUser = function (callback) { // "currentUser" is defined in the express middleware to manage sessions
     User.findOne({_id: req.session.userId}, function (err, user) {
       req.user = user;
       callback(null, user);
@@ -80,7 +80,7 @@ app.post('/users', function (req, res) {
 
   // create new user with secure password
   User.createSecure(newUser.email, newUser.password, function (err, user) {
-    res.send(user);
+    res.redirect('/');
   });
 });
 
@@ -93,8 +93,18 @@ app.get('/signup', function (req, res) {
 app.get('/profile', function (req, res) {
   // finds user currently logged in
   req.currentUser(function (err, user) {
+    if (user) {
     res.sendFile(__dirname + '/public/views/profile.html');
+  } else {
+    res.redirect('/');
+  }
   });
+});
+
+// log out user (destroy session)
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
 });
 
 // app.get('/profile', function (req, res) {

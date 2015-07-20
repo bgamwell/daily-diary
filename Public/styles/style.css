@@ -1,8 +1,22 @@
-h1 {
-  color: red;
+body {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	background: none;
 }
 
 .profile-picture {
  max-width: 150px;
  border-radius: 100%;
+}
+
+.full {
+  background-image: url('../assets/01.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.col-md-3 {
+  margin-top: 350px;
 }
