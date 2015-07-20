@@ -2,7 +2,6 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    ejs = require('ejs'),
     session = require('express-session'),
     mongoose = require('mongoose'),
     User = require('./models/user'),
@@ -14,9 +13,6 @@ mongoose.connect(
   process.env.MONGOHQ_URL ||
   'mongodb://localhost/daily-diary' // plug in the db name you've been using
 );
-
-// set view engine for server-side templating
-app.set('view engine', 'ejs');
 
 // middleware
 app.use(bodyParser.urlencoded({extended: true}));
