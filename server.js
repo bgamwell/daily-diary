@@ -9,8 +9,6 @@ var express = require('express'),
     Log = require('./models/log');
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost/daily-diary');
-
 mongoose.connect(
   process.env.MONGOLAB_URI ||
   process.env.MONGOHQ_URL ||
