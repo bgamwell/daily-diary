@@ -17,6 +17,34 @@ body {
   background-size: cover;
 }
 
-.col-md-3 {
-  margin-top: 350px;
+.col-md-6 {
+  margin-top: 175px;
+}
+
+h1 {
+  font-family: 'Courgette', cursive;
+  color: #000080;
+  font-size: 120px;
+}
+
+#tagline {
+  font-size: 20px;
+  font-family: 'Lora', serif;
+}
+
+/*add on mouseover css effects to the below*/
+/*see if there's any way to style a modal in Bootstrap from the custom css page*/
+
+#login-button {
+  font-family: 'Courgette', cursive;
+  width: 150px;
+  background-color: #000080;
+  border-width: 0px;
+}
+
+#signup-button {
+  font-family: 'Courgette', cursive;
+  width: 150px;
+  background-color: #ffd100;
+  border-width: 0px;
 }
