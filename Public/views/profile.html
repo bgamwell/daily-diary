@@ -17,10 +17,25 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
           <div id="user-information-rendered-here" class="text-center"><!-- User profile information, such as name and picture will go in here --></div>
         </div> <!-- .col-md-3 close -->
-        <div class="col-md-8">
+      </div> <!-- .row close -->
+      <div class="row">
+
+        <!-- Add a character count to let users know how many characters they can still enter -->
+
+        <div class="log-form">
+          <form method="post" action="/api/logs"> <!--defined route -->
+            <div class="form-group">
+              <input type="text" name="log[diary_entry]" class="form-control" placeholder="What did you do today?">
+            </div>
+            <div class="button">
+              <input type="submit" value="Submit" class="btn btn-primary">
+            </div>
+          </form>
+        </div>
+        <div class="col-md-12 text-center" id="log-information-rendered-here">
           <!-- User diary entries will go here -->
         </div> <!-- .col-md-9 close -->
       </div> <!-- .row close -->
@@ -38,10 +53,16 @@
     <!-- Custom JS -->
     <script src="../scripts/script.js"></script>
 
+    <!-- Template to render current user information -->
     <script type="text/template" id="profile-template">
-      <h1> <%= firstname %> <%= lastname %> </h1> <!-- displays the name of the current user -->
-      <p><img class="profile-picture" src=<%= profile_picture %> > <p>
+      <h1> <%= currentUser.firstname %> <%= currentUser.lastname %> </h1> <!-- displays the name of the current user -->
+      <!-- <p><img class="profile-picture" src=<%= profile_picture %> > <p> -->
     </script>
+
+    <!-- Template to render current user's logs -->
+    <!-- <script type="text/template" id="log-template">
+
+    </script> -->
 
   </body>
 
